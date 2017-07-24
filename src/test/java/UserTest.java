@@ -57,4 +57,12 @@ public class UserTest {
     assertEquals(true, User.all().get(1).equals(secondUser));
   }
 
+  @Test
+  public void find_retriveUserById_true(){
+    User firstUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User secondUser = new User("Anna", "playing piano", "Seattle", "amma@gmail");
+    firstUser.save();
+    secondUser.save();
+    assertEquals(secondUser, User.find(secondUser.getId()));
+  }
 }
