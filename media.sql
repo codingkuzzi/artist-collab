@@ -34,6 +34,42 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: notes; Type: TABLE; Schema: public; Owner: Guest
+--
+
+CREATE TABLE notes (
+    id integer NOT NULL,
+    authorid integer,
+    author character varying,
+    description character varying,
+    occurrence timestamp without time zone
+);
+
+
+ALTER TABLE notes OWNER TO "Guest";
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
+--
+
+CREATE SEQUENCE notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE notes_id_seq OWNER TO "Guest";
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
+--
+
+ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
+
+
+--
 -- Name: projects; Type: TABLE; Schema: public; Owner: Guest
 --
 
@@ -152,6 +188,13 @@ ALTER SEQUENCE users_projects_id_seq OWNED BY users_projects.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
+ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
+--
+
 ALTER TABLE ONLY projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
 
 
@@ -167,6 +210,21 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY users_projects ALTER COLUMN id SET DEFAULT nextval('users_projects_id_seq'::regclass);
+
+
+--
+-- Data for Name: notes; Type: TABLE DATA; Schema: public; Owner: Guest
+--
+
+COPY notes (id, authorid, author, description, occurrence) FROM stdin;
+\.
+
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
+--
+
+SELECT pg_catalog.setval('notes_id_seq', 1, false);
 
 
 --
@@ -212,6 +270,14 @@ COPY users_projects (id, user_id, project_id) FROM stdin;
 --
 
 SELECT pg_catalog.setval('users_projects_id_seq', 1, false);
+
+
+--
+-- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
+--
+
+ALTER TABLE ONLY notes
+    ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
 
 
 --
