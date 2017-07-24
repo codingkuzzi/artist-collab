@@ -94,13 +94,39 @@ public class User {
   public static User find(int id){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM users WHERE id = :id";
-      // User newUser = con.createQuery(sql)
-      //   .addParameter("id", id)
-      //   .executeAndFetchFirst(User.class);
-      // return newUser;
       return con.createQuery(sql)
             .addParameter("id", id)
             .executeAndFetchFirst(User.class);
     }
   }
+
+  public void update(String name, String skills, String location, String email, String time_available, String picture_link, String past_works, String past_projects){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "UPDATE users SET name = :name, skills =:skills, location =:location, email=:email, time_available =:time_available, picture_link =:picture_link, past_works =:past_works, past_projects =:past_projects WHERE id =:id;";
+      con.createQuery(sql)
+      .addParameter("name", name)
+      .addParameter("skills", skills)
+      .addParameter("location", location)
+      .addParameter("email", email)
+      .addParameter("time_available", time_available)
+      .addParameter("picture_link", picture_link)
+      .addParameter("past_works", past_works)
+      .addParameter("past_projects", past_projects)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
+
+  //update user's info
+  //delete user account
+
+  //view projects user is a member of
+  //view projects that user hosts
+
+  //update project IF user is the host
+  //delete project IF user is the host
+  //add members to project IF user is the host
+
+
+
 }

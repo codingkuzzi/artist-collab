@@ -65,4 +65,13 @@ public class UserTest {
     secondUser.save();
     assertEquals(secondUser, User.find(secondUser.getId()));
   }
+
+  @Test
+  public void update_updateSkillsAnaEmail_true(){
+    User firstUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    firstUser.save();
+    firstUser.update("Fred", "painting, drafting, AutoCAD, 3D rendering", "Seattle", "fredrulez@gmail.com", "Wednesdays only", "", "", "");
+    User savedUser = User.find(firstUser.getId());
+    assertEquals("Fred", savedUser.getName());
+  }
 }
