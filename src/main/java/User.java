@@ -117,8 +117,23 @@ public class User {
     }
   }
 
-  //update user's info
-  //delete user account
+  public void delete() {
+    //int user_id = this.id;
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM users WHERE id=:id";
+      con.createQuery(sql)
+        .addParameter("id", id)
+        .executeUpdate();
+
+      String sql2 = "DELETE FROM users_projects WHERE user_id = :user_id";
+      con.createQuery(sql2)
+        .addParameter("user_id", this.getId())
+        .executeUpdate();
+    }
+  }
+
+
+
 
   //view projects user is a member of
   //view projects that user hosts
