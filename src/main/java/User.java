@@ -70,6 +70,7 @@ public class User {
     }
   }
 
+  @Override
   public boolean equals(Object otherUser) {
     if(!(otherUser instanceof User)) {
       return false;
@@ -118,7 +119,6 @@ public class User {
   }
 
   public void delete() {
-    //int user_id = this.id;
     try(Connection con = DB.sql2o.open()) {
       String sql = "DELETE FROM users WHERE id=:id";
       con.createQuery(sql)
