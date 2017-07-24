@@ -2,6 +2,8 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import org.sql2o.*;
 import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProjectTest {
 
@@ -80,16 +82,59 @@ public class ProjectTest {
     assertEquals(true, Project.all().get(1).equals(secondProject));
   }
 
-  // @Test
-  // public void Project_instantiatesWithTimeRequirements_String() {
-  //   Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland", "Every Saturday", "url");
-  //   assertEquals("Every Saturday", testProject.getTimeRequirements());
-  // }
-  //
-  // @Test
-  // public void Project_instantiatesWithProjectPicture_String() {
-  //   Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland", "Every Saturday", "url");
-  //   assertEquals("url", testProject.getProjectPicture());
-  // }
+  @Test
+   public void find_returnsProjectWithSameId_secondProject() {
+     Project firstProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+     firstProject.save();
+     Project secondProject = new Project("Afternoon painting", 2, "Music meetup", "Kirkland");
+     secondProject.save();
+     assertEquals(Project.find(secondProject.getId()), secondProject);
+   }
+
+   @Test
+ public void update_updatesProjectNameAndDescription_true() {
+   Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+   testProject.save();
+   testProject.update("Afternoon Tea", "Tea ceremony", "Seattle", "Mondays", "url:1", false);
+   assertEquals("Afternoon Tea", Project.find(testProject.getId()).getName());
+   assertEquals("Tea ceremony", Project.find(testProject.getId()).getDescription());
+   assertEquals("Seattle", Project.find(testProject.getId()).getLocation());
+   assertEquals("Mondays", Project.find(testProject.getId()).getTimeRequirements());
+   assertEquals("url:1", Project.find(testProject.getId()).getProjectPicture());
+   assertEquals(false, Project.find(testProject.getId()).isOpen());
+ }
+
+ @Test
+ public void delete_deletesProject_true() {
+   Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+   testProject.save();
+   int testProjectId = testProject.getId();
+   testProject.delete();
+   assertEquals(null, Project.find(testProjectId));
+ }
+
+ @Test
+ public void getMembers_retrievesAllUsersFromDatabase_MembersList() {
+   Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+   testProject.save();
+   User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+   testUser.save();
+   testProject.addMember(testUser);
+   List savedMembers = testProject.getMembers();
+   assertEquals(savedMembers.size(), 1);
+ }
+
+//  @Test
+//   public void addMember_addsUsersToProjects() {
+//     Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+//     testProject.save();
+//     User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+//     testUser.save();
+//     testProject.addMember(testUser);
+//     User savedMember = testProject.getMembers().get(0);
+// System.out.println(savedMember);
+//     assertTrue(testUser.equals(savedMember));
+//
+//   }
 
 }
