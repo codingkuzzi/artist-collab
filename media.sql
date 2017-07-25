@@ -2,12 +2,11 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -35,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: notes; Type: TABLE; Schema: public; Owner: lacrookedbeat
+-- Name: notes; Type: TABLE; Schema: public; Owner: Guest
 --
 
 CREATE TABLE notes (
@@ -48,10 +47,10 @@ CREATE TABLE notes (
 );
 
 
-ALTER TABLE notes OWNER TO lacrookedbeat;
+ALTER TABLE notes OWNER TO "Guest";
 
 --
--- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: lacrookedbeat
+-- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
 --
 
 CREATE SEQUENCE notes_id_seq
@@ -62,17 +61,17 @@ CREATE SEQUENCE notes_id_seq
     CACHE 1;
 
 
-ALTER TABLE notes_id_seq OWNER TO lacrookedbeat;
+ALTER TABLE notes_id_seq OWNER TO "Guest";
 
 --
--- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lacrookedbeat
+-- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
 --
 
 ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
 
 
 --
--- Name: projects; Type: TABLE; Schema: public; Owner: lacrookedbeat
+-- Name: projects; Type: TABLE; Schema: public; Owner: Guest
 --
 
 CREATE TABLE projects (
@@ -88,10 +87,10 @@ CREATE TABLE projects (
 );
 
 
-ALTER TABLE projects OWNER TO lacrookedbeat;
+ALTER TABLE projects OWNER TO "Guest";
 
 --
--- Name: projects_id_seq; Type: SEQUENCE; Schema: public; Owner: lacrookedbeat
+-- Name: projects_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
 --
 
 CREATE SEQUENCE projects_id_seq
@@ -102,17 +101,17 @@ CREATE SEQUENCE projects_id_seq
     CACHE 1;
 
 
-ALTER TABLE projects_id_seq OWNER TO lacrookedbeat;
+ALTER TABLE projects_id_seq OWNER TO "Guest";
 
 --
--- Name: projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lacrookedbeat
+-- Name: projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
 --
 
 ALTER SEQUENCE projects_id_seq OWNED BY projects.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: lacrookedbeat
+-- Name: users; Type: TABLE; Schema: public; Owner: Guest
 --
 
 CREATE TABLE users (
@@ -125,14 +124,15 @@ CREATE TABLE users (
     picture_link character varying,
     past_works character varying,
     past_projects character varying,
-    recommendations character varying
+    recommendations character varying,
+    password character varying
 );
 
 
-ALTER TABLE users OWNER TO lacrookedbeat;
+ALTER TABLE users OWNER TO "Guest";
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: lacrookedbeat
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
 --
 
 CREATE SEQUENCE users_id_seq
@@ -143,17 +143,17 @@ CREATE SEQUENCE users_id_seq
     CACHE 1;
 
 
-ALTER TABLE users_id_seq OWNER TO lacrookedbeat;
+ALTER TABLE users_id_seq OWNER TO "Guest";
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lacrookedbeat
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: users_projects; Type: TABLE; Schema: public; Owner: lacrookedbeat
+-- Name: users_projects; Type: TABLE; Schema: public; Owner: Guest
 --
 
 CREATE TABLE users_projects (
@@ -163,10 +163,10 @@ CREATE TABLE users_projects (
 );
 
 
-ALTER TABLE users_projects OWNER TO lacrookedbeat;
+ALTER TABLE users_projects OWNER TO "Guest";
 
 --
--- Name: users_projects_id_seq; Type: SEQUENCE; Schema: public; Owner: lacrookedbeat
+-- Name: users_projects_id_seq; Type: SEQUENCE; Schema: public; Owner: Guest
 --
 
 CREATE SEQUENCE users_projects_id_seq
@@ -177,45 +177,45 @@ CREATE SEQUENCE users_projects_id_seq
     CACHE 1;
 
 
-ALTER TABLE users_projects_id_seq OWNER TO lacrookedbeat;
+ALTER TABLE users_projects_id_seq OWNER TO "Guest";
 
 --
--- Name: users_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lacrookedbeat
+-- Name: users_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: Guest
 --
 
 ALTER SEQUENCE users_projects_id_seq OWNED BY users_projects.id;
 
 
 --
--- Name: notes id; Type: DEFAULT; Schema: public; Owner: lacrookedbeat
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
 
 
 --
--- Name: projects id; Type: DEFAULT; Schema: public; Owner: lacrookedbeat
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: lacrookedbeat
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: users_projects id; Type: DEFAULT; Schema: public; Owner: lacrookedbeat
+-- Name: id; Type: DEFAULT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY users_projects ALTER COLUMN id SET DEFAULT nextval('users_projects_id_seq'::regclass);
 
 
 --
--- Data for Name: notes; Type: TABLE DATA; Schema: public; Owner: lacrookedbeat
+-- Data for Name: notes; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY notes (id, authorid, author, description, occurrence, projectid) FROM stdin;
@@ -223,14 +223,14 @@ COPY notes (id, authorid, author, description, occurrence, projectid) FROM stdin
 
 
 --
--- Name: notes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lacrookedbeat
+-- Name: notes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
 SELECT pg_catalog.setval('notes_id_seq', 1, false);
 
 
 --
--- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: lacrookedbeat
+-- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY projects (id, name, host_id, description, location, deadline, time_requirements, project_picture, open_closed) FROM stdin;
@@ -238,29 +238,29 @@ COPY projects (id, name, host_id, description, location, deadline, time_requirem
 
 
 --
--- Name: projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lacrookedbeat
+-- Name: projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
 SELECT pg_catalog.setval('projects_id_seq', 1, false);
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: lacrookedbeat
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
-COPY users (id, name, skills, location, email, time_available, picture_link, past_works, past_projects, recommendations) FROM stdin;
+COPY users (id, name, skills, location, email, time_available, picture_link, past_works, past_projects, recommendations, password) FROM stdin;
 \.
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lacrookedbeat
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
 SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 
 --
--- Data for Name: users_projects; Type: TABLE DATA; Schema: public; Owner: lacrookedbeat
+-- Data for Name: users_projects; Type: TABLE DATA; Schema: public; Owner: Guest
 --
 
 COPY users_projects (id, user_id, project_id) FROM stdin;
@@ -268,14 +268,14 @@ COPY users_projects (id, user_id, project_id) FROM stdin;
 
 
 --
--- Name: users_projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lacrookedbeat
+-- Name: users_projects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: Guest
 --
 
 SELECT pg_catalog.setval('users_projects_id_seq', 1, false);
 
 
 --
--- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: lacrookedbeat
+-- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY notes
@@ -283,7 +283,7 @@ ALTER TABLE ONLY notes
 
 
 --
--- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: lacrookedbeat
+-- Name: projects_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY projects
@@ -291,7 +291,7 @@ ALTER TABLE ONLY projects
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: lacrookedbeat
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY users
@@ -299,11 +299,21 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_projects users_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: lacrookedbeat
+-- Name: users_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: Guest
 --
 
 ALTER TABLE ONLY users_projects
     ADD CONSTRAINT users_projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: epicodus
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM epicodus;
+GRANT ALL ON SCHEMA public TO epicodus;
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --

@@ -106,7 +106,7 @@ public class ProjectTest {
 
  @Test
  public void delete_deletesProject_true() {
-   Project testProject = new Project("SSSSSaturday Jam", 1, "Music meetup", "Kirkland");
+   Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
    testProject.save();
    int testProjectId = testProject.getId();
    testProject.delete();
@@ -118,7 +118,7 @@ public class ProjectTest {
   public void addMember_addsUsersToProjects() {
     Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
     testProject.save();
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     testProject.addMember(testUser);
     User savedUser = testProject.getMembers().get(0);
@@ -129,18 +129,18 @@ public class ProjectTest {
  public void getMembers_retrievesAllUsersFromDatabase_MembersList() {
    Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
    testProject.save();
-   User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+   User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
    testUser.save();
    testProject.addMember(testUser);
    List savedMembers = testProject.getMembers();
-   assertEquals(savedMembers.size(), 1); 
+   assertEquals(savedMembers.size(), 1);
  }
 
  @Test
    public void removeMemberFromProject_removesAssociationWithSpecifiedProject() {
      Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
      testProject.save();
-     User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+     User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
      testUser.save();
      testProject.removeMembersFromProject(testUser);
      List savedMembers = testProject.getMembers();
