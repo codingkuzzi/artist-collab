@@ -9,11 +9,13 @@ public class Note {
   private String author;
   private String description;
   private Timestamp occurrence;
+  private int projectId;
 
-  public Note (int authorId, String author, String description) {
+  public Note (int authorId, String author, String description, int projectId) {
     this.authorId = authorId;
     this.author = author;
     this.description = description;
+    this.projectId = projectId;
   }
 
   public String getAuthor() {
@@ -31,6 +33,9 @@ public class Note {
   public int getId(){
     return id;
   }
+  public int getProjectId() {
+    return projectId;
+  }
 
   @Override
   public boolean equals(Object otherNote) {
@@ -42,7 +47,8 @@ public class Note {
              this.getAuthor().equals(newNote.getAuthor()) &&
              this.getAuthorId() == (newNote.getAuthorId()) &&
              this.getDescription().equals(newNote.getDescription()) &&
-             this.getOccurrence().equals(newNote.getOccurrence());
+             this.getOccurrence().equals(newNote.getOccurrence()) &&
+             this.getProjectId() == newNote.getProjectId();
     }
   }
 
@@ -50,11 +56,12 @@ public class Note {
 
   public void save(){
     try (Connection con = DB.sql2o.open()){
-      String sql = "INSERT INTO notes (authorId, author, description, occurrence) VALUES (:authorId, :author, :description, now())";
+      String sql = "INSERT INTO notes (authorId, author, description, projectId, occurrence) VALUES (:authorId, :author, :description, :projectId, now())";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("authorId", authorId)
         .addParameter("author", author)
         .addParameter("description", description)
+        .addParameter("projectId", projectId)
         .throwOnMappingFailure(false)
         .executeUpdate()
         .getKey();
@@ -66,6 +73,12 @@ public class Note {
       return con.createQuery(sql)
             .addParameter("id", id)
             .executeAndFetchFirst(Note.class);
+    }
+  }
+  public static List<Note> all() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM notes";
+      return con.createQuery(sql).executeAndFetch(Note.class);
     }
   }
 
