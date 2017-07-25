@@ -11,35 +11,35 @@ public class NoteTest {
 
   @Test
   public void Note_instantiatesCorrectly_true() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note testNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     assertTrue(testNote instanceof Note);
   }
   @Test
   public void getAuthor_retrievesUserNameFromNoteObject_true() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note testNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     assertEquals(testUser.getName(), testNote.getAuthor());
   }
   @Test
   public void getDescription_retriveDescriptionFromNoteObject_true(){
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note testNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     assertEquals(testNote.getDescription(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.");
   }
   @Test
   public void getAuthorId_retrievesAuthorIdFromNoteObject_true() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note testNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     assertEquals(testUser.getId(), testNote.getAuthorId());
   }
   @Test
   public void getId_NoteObjectSavesWithId_true(){
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note testNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     testNote.save();
@@ -47,7 +47,7 @@ public class NoteTest {
   }
   @Test
   public void equals_compareTwoNoteObjects_false() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     firstNote.save();
@@ -58,7 +58,7 @@ public class NoteTest {
 
   @Test
   public void find_retrievesNoteById_true() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note testNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     testNote.save();
@@ -68,7 +68,7 @@ public class NoteTest {
 
   @Test
   public void getOccurrence_CompareDateAndTime_true() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note testNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     testNote.save();
@@ -80,7 +80,7 @@ public class NoteTest {
 
   @Test
   public void all_retrievesAllNotes_true() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     firstNote.save();
@@ -94,7 +94,7 @@ public class NoteTest {
 
   @Test
   public void allByAuthorId_retrievesAllNotesByAuthor_true() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     firstNote.save();
@@ -115,7 +115,7 @@ public class NoteTest {
   public void allByProjectId_retrievesAllNotesByProjectId_true() {
     Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
     testProject.save();
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     firstNote.save();
@@ -134,7 +134,7 @@ public class NoteTest {
 
   @Test
   public void update_updateUserNoteDescription_true(){
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     firstNote.save();
@@ -144,7 +144,7 @@ public class NoteTest {
 
   @Test
   public void delete_deletesNote_null() {
-    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    User testUser = new User("Fred", "password", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     testUser.save();
     Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
     firstNote.save();

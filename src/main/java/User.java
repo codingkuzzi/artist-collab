@@ -4,6 +4,7 @@ import java.util.*;
 public class User {
   private int id;
   private String name;
+  private String password;
   private String skills;
   private String location;
   private String email;
@@ -20,8 +21,9 @@ public class User {
   private static final String NO_RECOMMENDATION = "No Recommendations Yet";
 
 
-  public User(String name, String skills, String location, String email){
+  public User(String name, String password, String skills, String location, String email){
     this.name = name;
+    this.password = password;
     this.skills = skills;
     this.location = location;
     this.email = email;
@@ -34,6 +36,10 @@ public class User {
 
   public String getName() {
     return name;
+  }
+
+  public String getPassword() {
+    return password;
   }
 
   public String getSkills() {
@@ -54,9 +60,10 @@ public class User {
 
   public void save(){
     try(Connection con = DB.sql2o.open()){
-      String sql = "INSERT INTO users (name, skills, location, email, time_available, picture_link, past_works, past_projects, recommendations) VALUES (:name, :skills, :location, :email, :time_available, :picture_link, :past_works, :past_projects, :recommendations)";
+      String sql = "INSERT INTO users (name, password, skills, location, email, time_available, picture_link, past_works, past_projects, recommendations) VALUES (:name, :password, :skills, :location, :email, :time_available, :picture_link, :past_works, :past_projects, :recommendations)";
       this.id = (int)con.createQuery(sql, true)
       .addParameter("name", name)
+      .addParameter("password", password)
       .addParameter("skills", skills)
       .addParameter("location", location)
       .addParameter("email", email)
@@ -101,11 +108,12 @@ public class User {
     }
   }
 
-  public void update(String name, String skills, String location, String email, String time_available, String picture_link, String past_works, String past_projects){
+  public void update(String name, String password, String skills, String location, String email, String time_available, String picture_link, String past_works, String past_projects){
     try(Connection con = DB.sql2o.open()){
-      String sql = "UPDATE users SET name = :name, skills =:skills, location =:location, email=:email, time_available =:time_available, picture_link =:picture_link, past_works =:past_works, past_projects =:past_projects WHERE id =:id;";
+      String sql = "UPDATE users SET name = :name, password = :password, skills =:skills, location =:location, email=:email, time_available =:time_available, picture_link =:picture_link, past_works =:past_works, past_projects =:past_projects WHERE id =:id;";
       con.createQuery(sql)
       .addParameter("name", name)
+      .addParameter("password", password)
       .addParameter("skills", skills)
       .addParameter("location", location)
       .addParameter("email", email)
