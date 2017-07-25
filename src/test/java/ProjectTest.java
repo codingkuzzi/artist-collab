@@ -73,7 +73,7 @@ public class ProjectTest {
    }
 
    @Test
-  public void all_returnsAllInstancesOfSighting_true() {
+  public void all_returnsAllInstancesOfProject_true() {
     Project firstProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
     firstProject.save();
     Project secondProject = new Project("Afternoon painting", 1, "Music meetup", "Kirkland");
@@ -106,12 +106,24 @@ public class ProjectTest {
 
  @Test
  public void delete_deletesProject_true() {
-   Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+   Project testProject = new Project("SSSSSaturday Jam", 1, "Music meetup", "Kirkland");
    testProject.save();
    int testProjectId = testProject.getId();
    testProject.delete();
    assertEquals(null, Project.find(testProjectId));
+
  }
+
+ @Test
+  public void addMember_addsUsersToProjects() {
+    Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+    testProject.save();
+    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    testUser.save();
+    testProject.addMember(testUser);
+    User savedUser = testProject.getMembers().get(0);
+    assertTrue(testUser.equals(savedUser));
+  }
 
  @Test
  public void getMembers_retrievesAllUsersFromDatabase_MembersList() {
@@ -124,20 +136,15 @@ public class ProjectTest {
    assertEquals(savedMembers.size(), 1); 
  }
 
-//  @Test
-//   public void addMember_addsUsersToProjects() {
-//     Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
-//     testProject.save();
-//     User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
-//     testUser.save();
-//     testProject.addMember(testUser);
-//     User savedMember = testProject.getMembers().get(0);
-// System.out.println(savedMember);
-//     assertTrue(testUser.equals(savedMember));
-//
-//   }
-
-
-
+ @Test
+   public void removeMemberFromProject_removesAssociationWithSpecifiedProject() {
+     Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+     testProject.save();
+     User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+     testUser.save();
+     testProject.removeMembersFromProject(testUser);
+     List savedMembers = testProject.getMembers();
+     assertEquals(0, savedMembers.size());
+   }
 
 }
