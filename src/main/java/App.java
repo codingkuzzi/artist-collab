@@ -24,6 +24,28 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    post("/users/:userId", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String name = request.queryParams("name");
+      String email = request.queryParams("email");
+      String skills = request.queryParams("skills");
+      String location = request.queryParams("location");
+      User user = new User(name, skills, location, email);
+      user.save();
+      model.put("user", user);
+      model.put("template", "templates/user-details.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/users/:userId", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params(":userId")));
+      model.put("user", user);
+      model.put("projects", user.getProjects());
+      model.put("template", "templates/user-details.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
   }
 
 }

@@ -51,6 +51,9 @@ public class User {
   public int getId(){
     return id;
   }
+  public String getTimeAvailable() {
+    return time_available;
+  }
 
   public void save(){
     try(Connection con = DB.sql2o.open()){
