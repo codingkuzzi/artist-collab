@@ -132,8 +132,23 @@ public void delete() {
  con.createQuery(sql)
    .addParameter("id", id)
    .executeUpdate();
+
+   String sql2 = "DELETE FROM users_projects WHERE project_id = :project_id";
+   con.createQuery(sql2)
+     .addParameter("project_id", this.getId())
+     .executeUpdate();
  }
 }
+
+public void removeMembersFromProject(User user) {
+ try(Connection con = DB.sql2o.open()) {
+   String sql2 = "DELETE FROM users_projects WHERE user_id = :user_id AND project_id = :project_id;";
+   con.createQuery(sql2)
+     .addParameter("user_id", user.getId())
+     .addParameter("project_id", this.getId())
+     .executeUpdate();
+   }
+ }
 
 public void addMember(User user) {
     try(Connection con = DB.sql2o.open()) {
@@ -155,9 +170,9 @@ public List<User> getMembers() {
      List<User> users = new ArrayList<User>();
 
      for (Integer userId : userIds) {
-        String userQuery = "SELECT * FROM users WHERE id = :id";
+        String userQuery = "SELECT * FROM users WHERE id = :userId";
         User user = con.createQuery(userQuery)
-          .addParameter("id", id)
+          .addParameter("userId", userId)
           .executeAndFetchFirst(User.class);
         users.add(user);
       }
