@@ -47,6 +47,27 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/users/:userId/delete-user", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params(":userId")));
+      model.put("user", user);
+      model.put("template", "templates/delete-user-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/users/:userId/user-deleted", (request,response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params(":userId")));
+      user.delete();
+      String url = "/";
+      response.redirect(url);
+      //model.put("user", user);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+
+    //project routes
+
     get("/users/:userId/add-new-project", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
@@ -72,6 +93,8 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    //page directs to newly created project details, but still shows $project.getId() in path
+
     get("/projects/:projectId", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Project project = Project.find(Integer.parseInt(request.params(":projectId")));
@@ -79,6 +102,7 @@ public class App {
       model.put("template", "templates/project-details.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
 
 
   }
