@@ -92,19 +92,49 @@ public class NoteTest {
     assertEquals(true, Note.all().get(1).equals(savedTwo));
   }
 
+  @Test
+  public void allByAuthorId_retrievesAllNotesByAuthor_true() {
+    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    testUser.save();
+    Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
+    firstNote.save();
+    Note secondNote = new Note(9, "Jonny 5", "This note is by a different author.", 3);
+    secondNote.save();
+    Note thirdNote = new Note(testUser.getId(), testUser.getName(), "I can't play tuba anymore. My lips fell off. Sorry!", 3);
+    thirdNote.save();
+    Note savedOne = Note.find(firstNote.getId());
+    Note savedTwo = Note.find(secondNote.getId());
+    Note savedThree = Note.find(thirdNote.getId());
+    List<Note> fredsNotes = Note.allByAuthorId(testUser.getId());
+    assertEquals(true, fredsNotes.get(0).equals(savedOne));
+    assertEquals(true, fredsNotes.get(1).equals(savedThree));
+    assertEquals(false, fredsNotes.get(1).equals(savedTwo));
+  }
 
+  @Test
+  public void allByProjectId_retrievesAllNotesByProjectId_true() {
+    Project testProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+    testProject.save();
+    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    testUser.save();
+    Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
+    firstNote.save();
+    Note secondNote = new Note(9, "Jonny 5", "Different author, same project.", testProject.getId());
+    secondNote.save();
+    Note thirdNote = new Note(testUser.getId(), testUser.getName(), "I can't play tuba anymore. My lips fell off. Sorry!", testProject.getId());
+    thirdNote.save();
+    Note savedOne = Note.find(firstNote.getId());
+    Note savedTwo = Note.find(secondNote.getId());
+    Note savedThree = Note.find(thirdNote.getId());
+    List<Note> fredsNotes = Note.allByProjectId(testProject.getId());
+    assertEquals(true, fredsNotes.get(0).equals(savedTwo));
+    assertEquals(true, fredsNotes.get(1).equals(savedThree));
+    assertEquals(false, fredsNotes.get(0).equals(savedOne));
 
-
-
-
-
-  // @Test
-  // public void allByAuthorId_retrievesAllNotesByAuthor_true() {
-  //
-  // }
+  }
 
   //need All notes method--DONE
-  //need All notes by Author method
+  //need All notes by Author method--DONE
   //need All notes by Project method
   //need update note method
   //need delete note method

@@ -75,11 +75,31 @@ public class Note {
             .executeAndFetchFirst(Note.class);
     }
   }
+
   public static List<Note> all() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM notes";
       return con.createQuery(sql).executeAndFetch(Note.class);
     }
   }
+
+  public static List<Note> allByAuthorId(int authorId) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM notes WHERE authorId = :authorId";
+      return con.createQuery(sql)
+        .addParameter("authorId", authorId)
+        .executeAndFetch(Note.class);
+    }
+  }
+
+  public static List<Note> allByProjectId(int projectId) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM notes WHERE projectId = :projectId";
+      return con.createQuery(sql)
+        .addParameter("projectId", projectId)
+        .executeAndFetch(Note.class);
+    }
+  }
+
 
 }
