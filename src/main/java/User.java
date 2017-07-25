@@ -156,7 +156,6 @@ public class User {
 
 
 
-  //view projects user is a member of
   //view projects that user hosts
 
   //update project IF user is the host

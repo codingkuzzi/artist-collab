@@ -74,11 +74,9 @@ public class UserTest {
     System.out.println(fredsProjects);
     System.out.println(savedProjectOne);
     System.out.println(savedProjectTwo);
-
     assertEquals(true, fredsProjects.get(0).equals(savedProjectOne));
     assertEquals(true, fredsProjects.get(1).equals(savedProjectTwo));
     assertEquals(fredsProjects.size(), 2);
-
   }
 
   @Test
