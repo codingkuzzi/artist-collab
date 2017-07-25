@@ -68,8 +68,7 @@ public class App {
       savedProject.addMember(host);
       model.put("project", savedProject);
       model.put("host", host);
-      // model.put("user", host);
-      // response.redirect("/users/:userId");
+      model.put("template", "templates/project-details.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
