@@ -130,14 +130,28 @@ public class NoteTest {
     assertEquals(true, fredsNotes.get(0).equals(savedTwo));
     assertEquals(true, fredsNotes.get(1).equals(savedThree));
     assertEquals(false, fredsNotes.get(0).equals(savedOne));
-
   }
 
-  //need All notes method--DONE
-  //need All notes by Author method--DONE
-  //need All notes by Project method
-  //need update note method
-  //need delete note method
+  @Test
+  public void update_updateUserNoteDescription_true(){
+    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    testUser.save();
+    Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
+    firstNote.save();
+    firstNote.update("hi");
+    assertEquals("hi", Note.find(firstNote.getId()).getDescription());
+  }
 
+  @Test
+  public void delete_deletesNote_null() {
+    User testUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    testUser.save();
+    Note firstNote = new Note(testUser.getId(), testUser.getName(), "I know a good glockenspiel player with 38 years of experience and a PhD from Julliard. He'll work for free.", 3);
+    firstNote.save();
+    Note savedNote = Note.find(firstNote.getId());
+    int tempId = savedNote.getId();
+    savedNote.delete();
+    assertEquals(null, Note.find(tempId));
+  }
 
 }
