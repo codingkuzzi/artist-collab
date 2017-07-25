@@ -1,0 +1,30 @@
+<!--add-new-user.vtl-->
+<h1>Tell us a Little About Yourself so you Can Start Collaborating with Others!</h1>
+
+<form action="/users/$user.getId()" method="post">
+  <div class="form-group">
+    <label for="name">Your UserName: </label>
+    <input id="name" name="name" type="text">
+  </div>
+  <div class="form-group">
+    <label for="email">Your Email: </label>
+    <input id="email" name="email" type="text">
+  </div>
+  <div class="form-group">
+    <label for="skills">Your Skills: </label>
+    <input id="skills" name="skills" type="text">
+  </div>
+  <div class="form-group">
+    <label for="location">Your Location: </label>
+    <input id="location" name="location" type="text">
+  </div>
+  <!-- <div class="form-group">
+    <label for="password">Your Password: </label>
+    <input id="password" name="password" type="text">
+  </div> -->
+  <button type="submit" class="btn btn-success">Create New Account</button>
+</form>
+
+<a href="/"><button class="btn btn-primary">Go Home</button></a>
+
+<!--add-new-user.vtl-->
