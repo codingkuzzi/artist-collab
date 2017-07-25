@@ -1,0 +1,26 @@
+<!--add-new-project.vtl-->
+<h1>Start a New Creative Project and Begin Collaborating!</h1>
+
+<form action="/projects/$project.getId()" method="post">
+  <input id="host_id" name="host_id" type="hidden" value="$user.getId()">
+
+  <div class="form-group">
+    <label for="name">Project Name: </label>
+    <input id="name" name="name" type="text" required>
+  </div>
+  <div class="form-group">
+    <label for="description">What is your project about?</label>
+    <input id="description" name="description" type="text" required>
+  </div>
+  <div class="form-group">
+    <label for="location">Location: </label>
+    <input id="location" name="location" type="text" required>
+  </div>
+
+  <button type="submit" class="btn btn-success">Create A New Project</button>
+</form>
+
+<a href="/"><button class="btn btn-primary">Go Home</button></a>
+
+
+<!--add-new-project.vtl-->

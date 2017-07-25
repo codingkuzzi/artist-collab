@@ -5,20 +5,23 @@
 <h4>Location: $user.getLocation()</h4>
 <h4>Email: $user.getEmail()</h4>
 <h4>Times Available: $user.getTimeAvailable()</h4>
-<h4>Projects:$user.getProjects()</h4>
 <!-- <h4>Picture Link: </h4> -->
 
-<ul>
-  #foreach ($project in $projects)
-    <li><a href="/users/$user.getId()/projects/$project.getId()">$project.getName()</a></li>
-  #end
-</ul>
+
+<div class="project-list">
+  <h4>Projects:</h4>
+  <ul>
+    #foreach ($project in $projects)
+      <li><a href="/projects/$project.getId()">$project.getName()</a></li>
+    #end
+  </ul>
+</div>
 
 <div class="options">
 <a href="/users/delete-user"><button class="btn btn-danger">Delete</button></a>
 <a href="/users/update-user"><button class="btn btn-info">Update</button></a>
 <a href="/"><button class="btn btn-danger">Log Out</button></a>
-<a href="/add-new-project"><button class="btn btn-success">Add New Project</button></a>
+<a href="/users/$user.getId()/add-new-project"><button class="btn btn-success">Add New Project</button></a>
 
 </div>
 
