@@ -1,6 +1,7 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.sql2o.*;
+import java.util.*;
 
 public class UserTest {
   @Rule
@@ -58,6 +59,29 @@ public class UserTest {
   }
 
   @Test
+  public void getProjects_retrievesAllProjectsByUser_true() {
+    User firstUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    firstUser.save();
+    Project firstProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+    firstProject.save();
+    Project savedProjectOne = Project.find(firstProject.getId());
+    savedProjectOne.addMember(firstUser);
+    Project secondProject = new Project("Saturday Jam", 1, "Music meetup", "Kirkland");
+    secondProject.save();
+    Project savedProjectTwo = Project.find(secondProject.getId());
+    savedProjectTwo.addMember(firstUser);
+    List<Project> fredsProjects = firstUser.getProjects();
+    System.out.println(fredsProjects);
+    System.out.println(savedProjectOne);
+    System.out.println(savedProjectTwo);
+
+    assertEquals(true, fredsProjects.get(0).equals(savedProjectOne));
+    assertEquals(true, fredsProjects.get(1).equals(savedProjectTwo));
+    assertEquals(fredsProjects.size(), 2);
+
+  }
+
+  @Test
   public void find_retriveUserById_true(){
     User firstUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
     User secondUser = new User("Anna", "playing piano", "Seattle", "amma@gmail");
@@ -82,4 +106,15 @@ public class UserTest {
     savedUser.delete();
     assertEquals(null, User.find(firstUser.getId()));
   }
+  @Test
+  public void find_findHostForAProject_true() {
+    User firstUser = new User("Fred", "painting, drafting, AutoCAD", "Seattle", "fredartist@gmail.com");
+    firstUser.save();
+    User savedUser = User.find(firstUser.getId());
+    Project testProject = new Project("Saturday Jam", savedUser.getId(), "Music meetup", "Kirkland");
+    testProject.save();
+    Project savedProject = Project.find(testProject.getId());
+    assertEquals(savedProject.getHostId(), savedUser.getId());
+  }
+
 }
