@@ -133,7 +133,7 @@ public class ProjectTest {
    testUser.save();
    testProject.addMember(testUser);
    List savedMembers = testProject.getMembers();
-   assertEquals(savedMembers.size(), 1);
+   assertEquals(savedMembers.size(), 1); 
  }
 
  @Test

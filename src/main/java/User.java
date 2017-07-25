@@ -132,6 +132,27 @@ public class User {
     }
   }
 
+  public List<Project> getProjects() {
+     try(Connection con = DB.sql2o.open()) {
+       String joinQuery = "SELECT project_id FROM users_projects where user_id = :user_id";
+       List<Integer> projectIds = con.createQuery(joinQuery)
+         .addParameter("user_id", this.getId())
+         .executeAndFetch(Integer.class);
+
+       List<Project> projects = new ArrayList<Project>();
+
+       for (Integer projectId : projectIds) {
+          String userQuery = "SELECT * FROM projects WHERE id = :id";
+          Project project = con.createQuery(userQuery)
+            .addParameter("id", projectId)
+            .executeAndFetchFirst(Project.class);
+          projects.add(project);
+        }
+        return projects;
+     }
+   }
+
+
 
 
 
