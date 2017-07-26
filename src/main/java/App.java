@@ -103,7 +103,7 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/projects/:projectId", (request, response) -> {
+    post("users/:userId/projects/:projectId", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User host = User.find(Integer.parseInt(request.queryParams("host_id")));
       String name = request.queryParams("name");
@@ -114,6 +114,7 @@ public class App {
       project.save();
       Project savedProject = Project.find(project.getId());
       savedProject.addMember(host);
+      model.put("user", host);
       model.put("project", savedProject);
       model.put("host", host);
       model.put("template", "templates/project-details.vtl");
@@ -122,11 +123,13 @@ public class App {
 
     //page directs to newly created project details, but still shows $project.getId() in path
 
-    get("/projects/:projectId", (request, response) -> {
+    get("users/:userId/projects/:projectId", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Project project = Project.find(Integer.parseInt(request.params(":projectId")));
       User host = User.find(project.getHostId());
+      User user = User.find(Integer.parseInt(request.params(":userId")));
       model.put("host", host);
+      model.put("user", user);
       model.put("members", project.getMembers());
       model.put("project", project);
       model.put("notes", Note.allByProjectId(project.getId()));
@@ -134,15 +137,17 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/projects/:projectId/note-added", (request, response) -> {
+    post("users/:userId/projects/:projectId/note-added", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      // Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
       String noteDescription = request.queryParams("add-note");
-      int projectId = Integer.parseInt(request.params(":projectId"));
+      // int projectId = Integer.parseInt(request.params(":projectId"));
+      // int userId = Integer.parseInt(request.params(":userId"));
+      User user = User.find(Integer.parseInt(request.params(":userId")));
       User noteTaker = User.find(Integer.parseInt(request.queryParams("host_id")));
-      Note newNote = new Note(noteTaker.getId(), noteTaker.getName(), noteDescription, projectId);
+      Note newNote = new Note(noteTaker.getId(), noteTaker.getName(), noteDescription, project.getId());
       newNote.save();
-      String url = String.format("/projects/%d", projectId);
+      String url = String.format("/users/%d/projects/%d", user.getId(), project.getId());
       response.redirect(url);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());

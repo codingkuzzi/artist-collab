@@ -25,17 +25,17 @@
 
 <br>
 <div class="project-buttons">
-  <a href="/projects/$project.getId()/add-member"><button class="btn btn-primary">Add Member to Project</button></a>
-  <a href="/projects/$project.getId()/update-project"><button class="btn btn-info">Update Project Details</button></a>
-  <a href="/projects/$project.getId()/delete-project"><button class="btn btn-danger">Delete Project</button></a>
+  <a href="/users/$user.getId()/projects/$project.getId()/add-member"><button class="btn btn-primary">Add Member to Project</button></a>
+  <a href="/users/$user.getId()/projects/$project.getId()/update-project"><button class="btn btn-info">Update Project Details</button></a>
+  <a href="/users/$user.getId()/projects/$project.getId()/delete-project"><button class="btn btn-danger">Delete Project</button></a>
 </div>
 
 <br><br>
 
 <div class="jumbotron">
   <h4>Project Notes: </h4>
-  <form action="/projects/$project.getId()/note-added" method="post">
-    <input id="host_id" name="host_id" type="hidden" value="$host.getId()">
+  <form action="/users/$user.getId()/projects/$project.getId()/note-added" method="post">
+    <input id="host_id" name="host_id" type="hidden" value="$user.getId()">
     <label for="add-note">Add a Note to Project: </label>
     <textarea id="add-note" name="add-note" type="text" class="form-control" rows=5 required></textarea>
     <button type="submit" class="btn btn-success">Add Note</button>

@@ -1,7 +1,7 @@
 <!--add-new-project.vtl-->
 <h1>Start a New Creative Project and Begin Collaborating!</h1>
 
-<form action="/projects/$project.getId()" method="post">
+<form action="/users/$user.getId()/projects/$project.getId()" method="post">
   <input id="host_id" name="host_id" type="hidden" value="$user.getId()">
 
   <div class="form-group">
