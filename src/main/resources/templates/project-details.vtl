@@ -25,10 +25,16 @@
 
 <br>
 <div class="project-buttons">
-  <a href="/users/$user.getId()/projects/$project.getId()/add-member"><button class="btn btn-primary">Add Member to Project</button></a>
-  <a href="/users/$user.getId()/projects/$project.getId()/update-project"><button class="btn btn-info">Update Project Details</button></a>
-  <a href="/users/$user.getId()/projects/$project.getId()/delete-project"><button class="btn btn-danger">Delete Project</button></a>
+  #if ($user.getId() == $host.getId())
+    <a href="/users/$user.getId()/projects/$project.getId()/add-member"><button class="btn btn-primary">Add Member to Project</button></a>
+    <a href="/users/$user.getId()/projects/$project.getId()/remove-member"><button class="btn btn-danger">Remove Member from Project</button></a>
+    <a href="/users/$user.getId()/projects/$project.getId()/update-project"><button class="btn btn-info">Update Project Details</button></a>
+    <a href="/users/$user.getId()/projects/$project.getId()/delete-project"><button class="btn btn-danger">Delete Project</button></a>
+    #else
+    <h4>Only the Host has permission to Add Members, Remove Members, Update Project Details, or Delete Project.</h4>
+  #end
 </div>
+
 
 <br><br>
 

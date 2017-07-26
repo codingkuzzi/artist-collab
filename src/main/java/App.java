@@ -152,6 +152,57 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/users/:userId/projects/:projectId/add-member", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      model.put("project", project);
+      model.put("host", host);
+      model.put("users", User.all());
+      model.put("template", "templates/add-member-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/users/:userId/projects/:projectId/add-member", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      String selectedName = request.queryParams("add-member");
+      User selectedUser = User.findByName(selectedName);
+      project.addMember(selectedUser);
+      model.put("project", project);
+      model.put("host", host);
+      String url = String.format("/users/%d/projects/%d", host.getId(), project.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/users/:userId/projects/:projectId/remove-member", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      model.put("project", project);
+      model.put("host", host);
+      model.put("members", project.getMembers());
+      model.put("template", "templates/remove-member-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/users/:userId/projects/:projectId/remove-member", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      String selectedName = request.queryParams("remove-member");
+      User selectedUser = User.findByName(selectedName);
+      project.removeMembersFromProject(selectedUser);
+      model.put("project", project);
+      model.put("host", host);
+      String url = String.format("/users/%d/projects/%d", host.getId(), project.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+
   }
 
 }

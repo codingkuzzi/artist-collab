@@ -1,0 +1,17 @@
+<!--add-member-form.vtl-->
+<h1>Add Member to Project: $project.getName()</h1>
+
+<form action="/users/$host.getId()/projects/$project.getId()/add-member" method="post">
+  <h4>Type in the Username to Add your New Project Member</h4>
+  <input id="add-member" name="add-member" type="text" required>
+  <button type="submit" class="btn btn-success">Add Member</button>
+</form>
+
+<h4>List of Artist Collab Members:</h4>
+<ul>
+  #foreach($user in $users)
+    <li><a href="/users/$user.getId()">$user.getName()</a></li>
+  #end
+</ul>
+
+<!--add-member-form.vtl-->

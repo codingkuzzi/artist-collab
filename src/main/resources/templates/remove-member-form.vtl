@@ -1,0 +1,17 @@
+<!--remove-member-form.vtl-->
+<h1>Remove Member From Project: $project.getName()</h1>
+
+<form action="/users/$host.getId()/projects/$project.getId()/remove-member" method="post">
+  <h4>Type in the Username to Remove this Project Member</h4>
+  <input id="remove-member" name="remove-member" type="text" required>
+  <button type="submit" class="btn btn-danger">Remove Member</button>
+</form>
+
+<h4>List of Artist Collab Members:</h4>
+<ul>
+  #foreach($member in $members)
+    <li><a href="/users/$member.getId()">$member.getName()</a></li>
+  #end
+</ul>
+
+<!--remove-member-form.vtl-->

@@ -123,6 +123,16 @@ public class User {
     }
   }
 
+  public static User findByName(String name){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM users WHERE name = :name";
+      return con.createQuery(sql)
+            .addParameter("name", name)
+            .executeAndFetchFirst(User.class);
+    }
+  }
+
+
   public void update(String name, String password, String skills, String location, String email, String time_available, String picture_link, String past_works, String past_projects){
     try(Connection con = DB.sql2o.open()){
       String sql = "UPDATE users SET name = :name, password = :password, skills =:skills, location =:location, email=:email, time_available =:time_available, picture_link =:picture_link, past_works =:past_works, past_projects =:past_projects WHERE id =:id;";
