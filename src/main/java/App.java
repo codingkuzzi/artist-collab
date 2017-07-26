@@ -202,6 +202,39 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/users/:userId/projects/:projectId/update-project", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      model.put("project", project);
+      model.put("host", host);
+      model.put("template", "templates/update-project-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/users/:userId/projects/:projectId/update-project", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      String name = request.queryParams("name");
+      String description = request.queryParams("description");
+      String location = request.queryParams("location");
+      String time_requirements = request.queryParams("time_requirements");
+      String picture_link = request.queryParams("picture_link");
+      boolean open = true;
+      String stringOpen = request.queryParams("open_closed");
+      if (stringOpen.equals("true")) {
+        open = true;
+      } else {
+        open = false;
+      }
+      project.update(name, description, location, time_requirements, picture_link, open);
+      model.put("project", project);
+      model.put("host", host);
+      String url = String.format("/users/%d/projects/%d", host.getId(), project.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
   }
 

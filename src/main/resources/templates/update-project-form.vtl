@@ -1,0 +1,41 @@
+<!--update-project-form.vtl-->
+<h1>Update Project: $project.getName()</h1>
+
+<form action="/users/$host.getId()/projects/$project.getId()/update-project" method="post">
+  <input id="host_id" name="host_id" type="hidden" value="$host.getId()">
+
+  <div class="form-group">
+    <label for="name">Project Name: </label>
+    <input id="name" name="name" type="text" value="$project.getName()" required>
+  </div>
+  <div class="form-group">
+    <label for="description">Project Description / What is Needed: </label>
+    <textarea id="description" name="description" type="text" class="form-control" rows=5 required>$project.getDescription()</textarea>
+    <!-- <input id="description" name="description" type="text" rows=10 value="$project.getDescription()" class="form-control" required> -->
+  </div>
+  <div class="form-group">
+    <label for="location">Location: </label>
+    <input id="location" name="location" type="text" value="$project.getLocation()" required>
+  </div>
+  <div class="form-group">
+    <label for="time_requirements">Time Requirements / Level of Commitment: </label>
+    <input id="time_requirements" name="time_requirements" type="text" value="$project.getTimeRequirements()">
+  </div>
+  <div class="form-group">
+    <label for="picture-link">Picture Link: </label>
+    <input id="picture-link" name="picture-link" type="text" value="$project.getProjectPicture()">
+  </div>
+  <div class="form-group">
+    <label for="open_closed">Is Your Project Open or Closed?</label>
+    <select name="open_closed" class="form-control">
+      <option value="true">Open: Looking for Collaborators</option>
+      <option value="false">Closed: Project is Full</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-success">Update Your Project</button>
+</form>
+
+<a href="/"><button class="btn btn-primary">Go Home</button></a>
+
+
+<!--update-project-form.vtl-->
