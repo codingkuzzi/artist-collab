@@ -1,9 +1,55 @@
 <!--project-details.vtl-->
-<h1>$project.getName()</h1>
-<h1>$project.getHostId()</h1>
-<h1>$project.getId()</h1>
-<h3>$project.getDescription()</h3>
+<h1>Project Name: $project.getName()</h1>
 
+<h3>Project Host: $host.getName() / Email: $host.getEmail()</h3>
+
+
+<h3>Project Members: </h3>
+<ul>
+#foreach ($member in $members)
+  <li><a href="/users/$member.getId()">$member.getName()</a></li>
+#end
+</ul>
+
+<h3>Project Description: $project.getDescription()</h3>
+
+<h4>Project Location: $project.getLocation()</h4>
+<h4>Project Time Requirements: $project.getTimeRequirements()</h4>
+<h4>Project Picture Link: $project.getProjectPicture()</h4>
+
+#if ($project.isOpen() == true)
+  <h4>This is an Open Project</h4>
+  #else
+  <h4>This Project is Closed</h4>
+#end
+
+<br>
+<div class="project-buttons">
+  <a href="/projects/$project.getId()/add-member"><button class="btn btn-primary">Add Member to Project</button></a>
+  <a href="/projects/$project.getId()/update-project"><button class="btn btn-info">Update Project Details</button></a>
+  <a href="/projects/$project.getId()/delete-project"><button class="btn btn-danger">Delete Project</button></a>
+</div>
+
+<br><br>
+
+<div class="jumbotron">
+  <h4>Project Notes: </h4>
+  <form action="/projects/$project.getId()/note-added" method="post">
+    <input id="host_id" name="host_id" type="hidden" value="$host.getId()">
+    <label for="add-note">Add a Note to Project: </label>
+    <textarea id="add-note" name="add-note" type="text" class="form-control" rows=5 required></textarea>
+    <button type="submit" class="btn btn-success">Add Note</button>
+  </form>
+
+  #foreach ($note in $notes)
+  <!-- <div class="detailBox"> -->
+  <div class="thumbnail">
+    <p>$note.getAuthor()</p>
+    <p>$note.getOccurrence()</p>
+    <p>$note.getDescription()</p>
+  </div>
+  #end
+</div>
 
 
 <!--project-details.vtl-->

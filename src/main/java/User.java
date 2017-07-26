@@ -34,6 +34,18 @@ public class User {
     this.recommendations = NO_RECOMMENDATION;
   }
 
+  public String getPastProjects() {
+    return past_projects;
+  }
+
+  public String getPictureLink() {
+    return picture_link;
+  }
+
+  public String getPastWorks() {
+    return past_works;
+  }
+
   public String getName() {
     return name;
   }

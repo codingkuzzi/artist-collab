@@ -1,0 +1,47 @@
+<!--update-user-form.vtl-->
+<h1>Update Your Artist Profile Here</h1>
+
+<form action="/users/$user.getId()/user-updated" method="post">
+  <div class="form-group">
+    <label for="name">Your UserName: </label>
+    <input id="name" name="name" type="text" value="$user.getName()" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Your Email: </label>
+    <input id="email" name="email" type="text" value="$user.getEmail()" required>
+  </div>
+  <div class="form-group">
+    <label for="skills">Your Skills: </label>
+    <input id="skills" name="skills" type="text" value="$user.getSkills()" required>
+  </div>
+  <div class="form-group">
+    <label for="location">Your Location: </label>
+    <input id="location" name="location" type="text" value="$user.getLocation()" required>
+  </div>
+  <div class="form-group">
+    <label for="password">Your Password: </label>
+    <input id="password" name="password" type="text" value="$user.getPassword()" required>
+  </div>
+  <div class="form-group">
+    <label for="time-available">Times Available: </label>
+    <input id="time-available" name="time-available" type="text" value="$user.getTimeAvailable()">
+  </div>
+  <div class="form-group">
+    <label for="pic-link">Profile Picture Link: </label>
+    <input id="pic-link" name="pic-link" type="text" value="$user.getPictureLink()">
+  </div>
+  <div class="form-group">
+    <label for="past-works">Past Works: </label>
+    <input id="past-works" name="past-works" type="text" value="$user.getPastWorks()">
+  </div>
+  <div class="form-group">
+    <label for="past-projects">Past or Current Artist Collab Projects: </label>
+    <input id="past-projects" name="past-projects" type="text" value="$user.getPastProjects()">
+  </div>
+
+  <button type="submit" class="btn btn-success">Update Your Account</button>
+</form>
+
+<a href="/"><button class="btn btn-primary">Go Home</button></a>
+
+<!--update-user-form.vtl-->
