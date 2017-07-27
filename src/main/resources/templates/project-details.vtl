@@ -1,4 +1,12 @@
 <!--project-details.vtl-->
+
+<style>
+body {
+        background-image: url("$project.getProjectPicture()");
+
+}
+</style>
+<div class="well">
 <h1>Project Name: $project.getName()</h1>
 
 <h3>Project Host: <a href="/users/$host.getId()">$host.getName()</a> / Email: $host.getEmail()</h3>
@@ -15,7 +23,7 @@
 
 <h4>Project Location: $project.getLocation()</h4>
 <h4>Project Time Requirements: $project.getTimeRequirements()</h4>
-<h4>Project Picture Link: $project.getProjectPicture()</h4>
+
 
 #if ($project.isOpen() == true)
   <h4>This is an Open Project</h4>
@@ -26,27 +34,24 @@
 <br>
 <div class="project-buttons">
   #if ($user.getId() == $host.getId())
-    <a href="/users/$user.getId()/projects/$project.getId()/add-member"><button class="btn btn-primary">Add Member to Project</button></a>
-    <a href="/users/$user.getId()/projects/$project.getId()/remove-member"><button class="btn btn-danger">Remove Member from Project</button></a>
-    <a href="/users/$user.getId()/projects/$project.getId()/update-project"><button class="btn btn-info">Update Project Details</button></a>
-    <a href="/users/$user.getId()/projects/$project.getId()/delete-project"><button class="btn btn-danger">Delete Project</button></a>
+    <a href="/users/$user.getId()/projects/$project.getId()/add-member"><button class="btn" id="orange">Add Member to Project</button></a>
+    <a href="/users/$user.getId()/projects/$project.getId()/remove-member"><button class="btn" id="red">Remove Member from Project</button></a>
+    <a href="/users/$user.getId()/projects/$project.getId()/update-project"><button class="btn" id="orange">Update Project Details</button></a>
+    <a href="/users/$user.getId()/projects/$project.getId()/delete-project"><button class="btn" id="red">Delete Project</button></a>
     #else
     <h4>Only the Host has permission to Add Members, Remove Members, Update Project Details, or Delete Project.</h4>
   #end
 </div>
-
-
-<br><br>
-
-<div class="jumbotron">
-  <h4>Project Notes: </h4>
+<br>
+  <h3>Add a Note to Project: </h3>
   <form action="/users/$user.getId()/projects/$project.getId()/note-added" method="post">
     <input id="host_id" name="host_id" type="hidden" value="$user.getId()">
-    <label for="add-note">Add a Note to Project: </label>
+    <label for="add-note"></label>
     <textarea id="add-note" name="add-note" type="text" class="form-control" rows=5 required></textarea>
-    <button type="submit" class="btn btn-success">Add Note</button>
+    <button type="submit" class="btn" id="orange">Add Note</button>
   </form>
-
+  </div>
+<br>
   #foreach ($note in $notes)
   <!-- <div class="detailBox"> -->
   <div class="thumbnail">
@@ -55,7 +60,7 @@
     <p>$note.getDescription()</p>
   </div>
   #end
-</div>
+
 
 
 <!--project-details.vtl-->

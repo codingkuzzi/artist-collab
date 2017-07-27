@@ -1,12 +1,16 @@
 <!--user-details.vtl-->
 <h1>Profile Page for $user.getName()</h1>
 
+
+<div class="row">
+
+<div class="col-md-7">
+
 <h4>Skills: $user.getSkills()</h4>
 <h4>Location: $user.getLocation()</h4>
 <h4>Email: $user.getEmail()</h4>
 <h4>Times Available: $user.getTimeAvailable()</h4>
 <!-- <h4>Picture Link: </h4> -->
-
 
 <div class="project-list">
   <h4>Projects:</h4>
@@ -17,13 +21,20 @@
   </ul>
 </div>
 
+
+
+<a href="/users/$user.getId()/searchUsers"><h4>Find Artists to Collaborate With!</h4></a>
+
 <div class="options">
 <a href="/users/$user.getId()/delete-user"><button class="btn btn-danger">Delete Your Account</button></a>
 <a href="/users/$user.getId()/update-user"><button class="btn btn-info">Update Your Profile</button></a>
 <a href="/"><button class="btn btn-danger">Log Out</button></a>
 <a href="/users/$user.getId()/add-new-project"><button class="btn btn-success">Add New Project</button></a>
 </div>
+</div>
+<div class="col-md-5">
+<img src="$user.getPictureLink()" alt="user picture" height="300" width = "300" style="border: none;" >
+</div>
 
-<a href="/users/$user.getId()/searchUsers"><h4>Find Artists to Collaborate With!</h4></a>
-
+</div>
 <!--user-details.vtl-->
