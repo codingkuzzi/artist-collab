@@ -76,7 +76,9 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
       List<User> skillmatches = User.searchSkills(request.session().attribute("requestSkill"));
+      List<User> locationmatches = User.searchLocation(request.session().attribute("requestLocation"));
       model.put("skillmatches", skillmatches);
+      model.put("locationmatches", locationmatches);
       model.put("user", user);
       model.put("template", "templates/search-users-form.vtl");
       return new ModelAndView(model, layout);
@@ -87,12 +89,13 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
       String searchSkill = request.queryParams("search-skill");
-      // String searchLocation = request.queryParams("search-location");
+      String searchLocation = request.queryParams("search-location");
       List<User> skillmatches = User.searchSkills(searchSkill);
+      List<User> locationmatches = User.searchLocation(searchLocation);
       request.session().attribute("requestSkill", searchSkill);
+      request.session().attribute("requestLocation", searchLocation);
       model.put("skillmatches", skillmatches);
-      // List<User> locationmatches = User.searchLocation(searchLocation);
-      // model.put("locationmatches", locationmatches);
+      model.put("locationmatches", locationmatches);
       model.put("user", user);
       String url = String.format("/users/%d/searchUsers", user.getId());
       response.redirect(url);
