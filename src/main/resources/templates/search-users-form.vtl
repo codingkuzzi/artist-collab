@@ -22,7 +22,7 @@
   <div class="col-xs-6">
     #foreach($skillmatch in $skillmatches)
       <div class="thumbnail">
-        <a href="/users/$skillmatch.getId()"><h5>$skillmatch.getName()</h5></a>
+        <a href="/users/$skillmatch.getId()"><h4>$skillmatch.getName()</h4></a>
         <ul>
           <li>$skillmatch.getSkills()</li>
           <li>$skillmatch.getLocation()</li>
@@ -34,7 +34,7 @@
   <div class="col-xs-6">
     #foreach($locationmatch in $locationmatches)
       <div class="thumbnail">
-        <a href="/users/$locationmatch.getId()"><h5>$locationmatch.getName()</h5></a>
+        <a href="/users/$locationmatch.getId()"><h4>$locationmatch.getName()</h4></a>
         <ul>
           <li>$locationmatch.getSkills()</li>
           <li>$locationmatch.getLocation()</li>

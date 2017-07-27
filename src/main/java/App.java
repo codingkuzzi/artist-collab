@@ -11,8 +11,6 @@ public class App {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
-    // String searchSkill = "";
-    // List<User> skillmatches = null;
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
@@ -42,6 +40,21 @@ public class App {
       model.put("template", "templates/login-error.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/users/all-users", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("users", User.all());
+      model.put("template", "templates/all-users.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/projects/all-projects", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("projects", Project.all());
+      model.put("template", "templates/all-projects.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
 
     get("/users/add-new-user", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
@@ -103,36 +116,6 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // post("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   User user = User.find(Integer.parseInt(request.params(":userId")));
-    //   String searchSkill = request.queryParams("search-skill");
-    //   String searchLocation = request.queryParams("search-location");
-    //   // if (!(searchSkill.equals(""))) {
-    //   List<User> skillmatches = User.searchSkills(searchSkill);
-    //   model.put("skillmatches", skillmatches);
-    //   // } else {
-    //   //   List<User> locationmatches = User.searchLocation(searchLocation);
-    //   //   model.put("locationmatches", locationmatches);
-    //   // }
-    //   model.put("user", user);
-    //   // String url = String.format("/users/%d/searchUsers", user.getId());
-    //   // response.redirect(url);
-    //   model.put("template", "templates/search-results.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // get("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   User user = User.find(Integer.parseInt(request.params(":userId")));
-    //   String skills = request.params(":skills");
-    //   model.put("user", user);
-    //   model.put("skillmatches", User.searchSkills(skills));
-    //   model.put("template", "templates/skills-results.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-
-
     get("/users/:userId/delete-user", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
@@ -147,7 +130,6 @@ public class App {
       user.delete();
       String url = "/";
       response.redirect(url);
-      //model.put("user", user);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -207,8 +189,6 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    //page directs to newly created project details, but still shows $project.getId() in path
-
     get("users/:userId/projects/:projectId", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Project project = Project.find(Integer.parseInt(request.params(":projectId")));
@@ -227,8 +207,6 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Project project = Project.find(Integer.parseInt(request.params(":projectId")));
       String noteDescription = request.queryParams("add-note");
-      // int projectId = Integer.parseInt(request.params(":projectId"));
-      // int userId = Integer.parseInt(request.params(":userId"));
       User user = User.find(Integer.parseInt(request.params(":userId")));
       User noteTaker = User.find(Integer.parseInt(request.queryParams("host_id")));
       Note newNote = new Note(noteTaker.getId(), noteTaker.getName(), noteDescription, project.getId());
