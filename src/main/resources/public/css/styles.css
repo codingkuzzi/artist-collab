@@ -1,5 +1,9 @@
 html,body{height:100%;padding:0;}
 
+#keepcalm {
+  margin-left: 400px;
+}
+
 body {
 
     color: #333;
@@ -140,7 +144,6 @@ canvas{
 
     #page-content-wrapper {
         padding: 20px;
-        background-color: #fcf5ea;
     }
 
     #wrapper.toggled #page-content-wrapper {
@@ -173,13 +176,6 @@ canvas{
   .thumbnail{
     font-size: 20px;
   }
-  .container{
-    background-color: #fcf5ea;
-  }
-  .toggled{
-    background-color: #fcf5ea;
-  }
-  #newlayout{
-    background-color: #fcf5ea;
-  }
+
+
 }
