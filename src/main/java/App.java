@@ -11,6 +11,9 @@ public class App {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
 
+    // String searchSkill = "";
+    // List<User> skillmatches = null;
+
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("users", User.all());
@@ -72,39 +75,59 @@ public class App {
     get("/users/:userId/searchUsers", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
+      List<User> skillmatches = User.searchSkills(request.session().attribute("requestSkill"));
+      model.put("skillmatches", skillmatches);
       model.put("user", user);
       model.put("template", "templates/search-users-form.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
+    //same page post search results
+    post("/users/:userId/searchUsers", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
       String searchSkill = request.queryParams("search-skill");
-      String searchLocation = request.queryParams("search-location");
-      // if (!(searchSkill.equals(""))) {
+      // String searchLocation = request.queryParams("search-location");
       List<User> skillmatches = User.searchSkills(searchSkill);
+      request.session().attribute("requestSkill", searchSkill);
       model.put("skillmatches", skillmatches);
-      // } else {
-      //   List<User> locationmatches = User.searchLocation(searchLocation);
-      //   model.put("locationmatches", locationmatches);
-      // }
+      // List<User> locationmatches = User.searchLocation(searchLocation);
+      // model.put("locationmatches", locationmatches);
       model.put("user", user);
-      // String url = String.format("/users/%d/searchUsers", user.getId());
-      // response.redirect(url);
-      model.put("template", "templates/search-results.vtl");
+      String url = String.format("/users/%d/searchUsers", user.getId());
+      response.redirect(url);
+      // model.put("template", "templates/searchUsers.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
-      Map<String, Object> model = new HashMap<String, Object>();
-      User user = User.find(Integer.parseInt(request.params(":userId")));
-      String skills = request.params(":skills");
-      model.put("user", user);
-      model.put("skillmatches", User.searchSkills(skills));
-      model.put("template", "templates/skills-results.vtl");
-      return new ModelAndView(model, layout);
-    }, new VelocityTemplateEngine());
+    // post("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
+    //   Map<String, Object> model = new HashMap<String, Object>();
+    //   User user = User.find(Integer.parseInt(request.params(":userId")));
+    //   String searchSkill = request.queryParams("search-skill");
+    //   String searchLocation = request.queryParams("search-location");
+    //   // if (!(searchSkill.equals(""))) {
+    //   List<User> skillmatches = User.searchSkills(searchSkill);
+    //   model.put("skillmatches", skillmatches);
+    //   // } else {
+    //   //   List<User> locationmatches = User.searchLocation(searchLocation);
+    //   //   model.put("locationmatches", locationmatches);
+    //   // }
+    //   model.put("user", user);
+    //   // String url = String.format("/users/%d/searchUsers", user.getId());
+    //   // response.redirect(url);
+    //   model.put("template", "templates/search-results.vtl");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
+    //
+    // get("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
+    //   Map<String, Object> model = new HashMap<String, Object>();
+    //   User user = User.find(Integer.parseInt(request.params(":userId")));
+    //   String skills = request.params(":skills");
+    //   model.put("user", user);
+    //   model.put("skillmatches", User.searchSkills(skills));
+    //   model.put("template", "templates/skills-results.vtl");
+    //   return new ModelAndView(model, layout);
+    // }, new VelocityTemplateEngine());
 
 
     get("/users/:userId/delete-user", (request, response) -> {
