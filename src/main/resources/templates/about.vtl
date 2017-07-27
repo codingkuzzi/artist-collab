@@ -1,4 +1,4 @@
-<!--index.vtl-->
+<!--about.vtl-->
 
 <!--Slideshow Code-->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -17,13 +17,10 @@
         <img src="https://s-media-cache-ak0.pinimg.com/originals/ef/9e/ce/ef9ece421400789a25abefd206f3e2bf.jpg" alt="Im2" style="width:100%;">
       </div>
       <div class="item">
-        <img src="/img/slide1.jpg" alt="Im2" style="width:100%;">
+        <img src="/img/band1.jpg" alt="Im2" style="width:100%;">
       </div>
       <div class="item">
-        <img src="/img/people_cooking.jpg" alt="Im2" style="width:100%;">
-      </div>
-      <div class="item">
-        <img src="/img/temecula.jpg" alt="Im2" style="width:100%;">
+        <img src="/img/image9.jpg" alt="Im2" style="width:100%;">
       </div>
     </div>
     <!-- Left and right controls -->
@@ -39,35 +36,14 @@
 
 <!--Slideshow Code-->
 
-<div class="container" id="container">
-<h1>Welcome to Artist Collab!</h1>
-  <div class="login">
-    <h3>Login Here</h3>
-    <form action="/login" method="post">
-      <div class="form-group">
-        <label for="username">UserName: </label>
-        <input id="username" name="username" type="text" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password: </label>
-        <input id="password" name="password" type="text" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-  </div>
+<div class="container">
+  <h1>All About Artist Collab</h1>
 
-  <h3>Create a New Account</h3>
-  <a href="/users/add-new-user"><button class="btn btn-success">Join Up!</button></a>
+  <h3>Artist Collab is a web application for artists who want to find other like-minded creative individuals to collaborate with. Whether you want to jam or start a band, film a movie, take a painting class together, or code a video game, it takes a diverse range of talent and skills to bring a big project to fruition. Artist Collab can help you find talent across the globe or in your local community based on other artists' skills or proximity.</h3>
 
-  <div class="user-list">
-  <h3>List of Users</h3>
-  <ul>
-  #foreach ($user in $users)
-    <li><a href="/users/$user.getId()">$user.getName()</a></li>
-  #end
-  </ul>
-  </div>
+  <h3>Or maybe you don't want to start a whole project yourself. Maybe you want to lend your amazing talents to someone in need. Whether you are an editing guy who wants to help out a local filmmaker, or an amazing banjo player willing to lend your dexterity on a studio track, or a talented mural painter looking for a spot to legally put up your work, Artist Collab can help you find the right avenue for your abilities and expertise.</h3>
+
+  <a href="/"><h2>Keep Calm and Collaborate On!</h2></a>
 </div>
 
-
-<!--index.vtl-->
+<!--about.vtl-->
