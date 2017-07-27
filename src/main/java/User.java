@@ -109,6 +109,16 @@ public class User {
     }
   }
 
+  public static int authenticate(String name, String password) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT id FROM users WHERE name = :name AND password = :password";
+      return con.createQuery(sql)
+        .addParameter("name", name)
+        .addParameter("password", password)
+        .executeAndFetchFirst(Integer.class);
+    }
+  }
+
   @Override
   public boolean equals(Object otherUser) {
     if(!(otherUser instanceof User)) {

@@ -1,0 +1,47 @@
+<!--search-users-form.vtl-->
+<h1>Find Artists to Collaborate With!</h1>
+
+<div class="row">
+  <div class="col-xs-6">
+    <form action="/users/$user.getId()/searchUsers-skillResults/$skills" method="post">
+      <label for="search-skill">Search by Skills</label>
+      <input id="search-skill" name="search-skill" type="text">
+      <button type="submit" class="btn btn-info">Find By Skill</button>
+    </form>
+  </div>
+  <div class="col-xs-6">
+    <form action="/users/$user.getId()/searchUsers-location" method="post">
+      <label for="search-location">Search by Location</label>
+      <input id="search-location" name="search-location" type="text">
+      <button type="submit" class="btn btn-success">Find By Location</button>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-6">
+    #foreach($skillmatch in $skillmatches)
+      <div class="thumbnail">
+        <a href="users/$skillmatch.getId()"><h5>$skillmatch.getName()</h5></a>
+        <ul>
+          <li>$skillmatch.getSkills()</li>
+          <li>$skillmatch.getLocation()</li>
+        </ul>
+      </div>
+    #end
+  </div>
+
+  <div class="col-xs-6">
+    #foreach($locationmatch in $locationmatches)
+      <div class="thumbnail">
+        <a href="users/$locationmatch.getId()"><h5>$locationmatch.getName()</h5></a>
+        <ul>
+          <li>$locationmatch.getSkills()</li>
+          <li>$locationmatch.getLocation()</li>
+        </ul>
+      </div>
+    #end
+  </div>
+</div>
+
+<!--search-users-form.vtl-->

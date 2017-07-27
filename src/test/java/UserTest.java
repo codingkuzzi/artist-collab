@@ -130,6 +130,15 @@ public class UserTest {
     List<User> users = User.searchLocation("Seattle");
     assertTrue(users.get(0).equals(firstUser));
   }
+  @Test
+  public void authenticate_retrieveUserIdIfMatchUsernameAndPassword_true() {
+    User firstUser = new User("Fred", "password", "painting, drawing, AutoCAD", "Seattle", "fredartist@gmail.com");
+    firstUser.save();
+    User secondUser = new User("Anna", "password123", "playing piano", "Seattle", "amma@gmail");
+    secondUser.save();
+    assertEquals(firstUser.getId(), User.authenticate("Fred", "password"));
+    assertEquals(secondUser.getId(), User.authenticate("Anna", "password123"));
+  }
 
 
 }
