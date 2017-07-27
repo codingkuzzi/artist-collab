@@ -1,0 +1,8 @@
+<!---delete-project-form---->
+
+<h3>Are you sure you want to delete Project: <strong>$project.getName()</strong>? This action cannot be undone!</h3>
+
+<form action="/users/$host.getId()/projects/$project.getId()/project-deleted" method="post">
+  <button type="submit" class="btn btn-danger">Delete Project</button>
+</form>
+<!---delete-project-form---->

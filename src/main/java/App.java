@@ -220,7 +220,7 @@ public class App {
       String description = request.queryParams("description");
       String location = request.queryParams("location");
       String time_requirements = request.queryParams("time_requirements");
-      String picture_link = request.queryParams("picture_link");
+      String picture_link = request.queryParams("picture-link");
       boolean open = true;
       String stringOpen = request.queryParams("open_closed");
       if (stringOpen.equals("true")) {
@@ -236,6 +236,25 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-  }
+    get("/users/:userId/projects/:projectId/delete-project", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      model.put("host", host);
+      model.put("project", project);
+      model.put("template", "templates/delete-project-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
+    post("/users/:userId/projects/:projectId/project-deleted", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Project project = Project.find(Integer.parseInt(request.params(":projectId")));
+      User host = User.find(Integer.parseInt(request.params(":userId")));
+      project.delete();
+      String url = String.format("/users/%d", host.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+  }
 }
