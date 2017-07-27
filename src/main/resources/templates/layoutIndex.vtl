@@ -37,30 +37,32 @@
   <body>
     <div id="wrapper" class="toggled">
        <div id="sidebar-wrapper">
-         <ul class="sidebar-nav">
-             <li class="sidebar-brand">
-             </li>
-             <li>
-                 <a href="/">Home</a>
-             </li>
-             <li>
-                 <a href="/about">About</a>
-             </li>
-             <li>
-                 <a href="/users/all-users">All Users</a>
-             </li>
-             <li>
-                 <a href="/projects/all-projects">All Projects</a>
-             </li>
-             <li>
-                 <a href="/users/$user.getId()/searchUsers">Search Users by Skill or Location</a>
-             </li>
-             <li>
-                 <a href="/users/$user.getId()/searchProjects">Search Projects by Skills Needed or Location</a>
-             </li>
-         </ul>
-     </div>
+          <ul class="sidebar-nav">
+              <li class="sidebar-brand">
+              </li>
+              <li>
+                  <a href="/">Home</a>
+              </li>
+              <li>
+                  <a href="/about">About</a>
+              </li>
+              <li>
+                  <a href="/users/all-users">All Users</a>
+              </li>
+              <li>
+                  <a href="/projects/all-projects">All Projects</a>
+              </li>
+              <li>
+                  <a href="/users/1/searchUsers">Search Users by Skill or Location</a>
+              </li>
+              <li>
+                  <a href="/users/1/searchProjects">Search Projects by Skills Needed or Location</a>
+              </li>
+          </ul>
+      </div>
+
       <div id="page-content-wrapper">
+
     <a class="btn btn-default" href=#menu-toggle" id="menu-toggle"><span class="glyphicon glyphicon-align-justify"></span></a>
     <div class="container-fluid">
 
@@ -72,10 +74,10 @@
 
 </div>
 
-    <div class="container">
+    <!-- <div class="container"> -->
 
       #parse( $template )
 
-    </div>
+    <!-- </div> -->
   </body>
 </html>

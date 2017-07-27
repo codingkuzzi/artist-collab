@@ -9,11 +9,13 @@ body {
     line-height: 1.2;
     font-family: 'Lato', sans-serif;
     background-color:#fff ;
-    overflow:hidden;
-    overflow-x: hidden;
+    overflow:scroll;
+    overflow-x: scroll;
 background: url("../1.jpeg");
 }
-canvas{	position: absolute;top: 0;left: 0;right: 0;bottom: 0;height: 100%;width: 100%;}
+canvas{
+  position: absolute;
+  top: 0;left: 0;right: 0;bottom: 0;height: 100%;width: 100%;}
 .text-home{display:table-cell;vertical-align:middle;width: 403px;height:600px;text-align:center;}
 .maj{text-transform:uppercase}
 .home-container{height:100%;position: relative;}
@@ -21,12 +23,12 @@ canvas{	position: absolute;top: 0;left: 0;right: 0;bottom: 0;height: 100%;width:
 .chaffle{background:none;background-color:transparent;color:#000;float:left}
 .nav > li > a:hover, .nav > li > a:focus {text-decoration: none;background-color: transparent;color:#000;}
 .nav {padding-left: 3em;}
- .line {top: 0;left: 0;right: 0;width: 30px;margin: 1em auto;border: 1px solid rgba(50, 50, 50, 0.9);}
+ .line {top: 0;left: 0;right: 0;width: 30px;margin: 1em auto;border: 1px solid rgba(50, 50, 50, 0.9);}*/
 /*!
  * Start Bootstrap - Simple Sidebar HTML Template (https://startbootstrap.com)
  * Code licensed under the Apache License v2.0.
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
+
 
 /* Toggle Styles */
 

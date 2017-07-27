@@ -1,0 +1,11 @@
+<!--all-projects.vtl-->
+<h1>List of All Projects: </h1>
+
+<ul>
+#foreach($project in $projects)
+  <li><a href="/users/0/projects/$project.getId()">$project.getName()</a></li>
+#end
+</ul>
+
+<a href="/"><h3>Create an Account and Start a Project Today!</h3></a>
+<!--all-projects.vtl-->

@@ -14,9 +14,11 @@ body {
 
 <h3>Project Members: </h3>
 <ul>
+  <h4>
 #foreach ($member in $members)
   <li><a href="/users/$member.getId()">$member.getName()</a></li>
 #end
+</h4>
 </ul>
 
 <h3>Project Description: $project.getDescription()</h3>

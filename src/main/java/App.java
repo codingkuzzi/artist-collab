@@ -10,12 +10,13 @@ public class App {
   public static void main(String[] args) {
     staticFileLocation("/public");
     String layout = "templates/layout.vtl";
+    String layoutIndex = "templates/layoutIndex.vtl";
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("users", User.all());
       model.put("template", "templates/index.vtl");
-      return new ModelAndView(model, layout);
+      return new ModelAndView(model, layoutIndex);
     }, new VelocityTemplateEngine());
 
     post("/login", (request, response) -> {
@@ -39,6 +40,21 @@ public class App {
       model.put("template", "templates/login-error.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/users/all-users", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("users", User.all());
+      model.put("template", "templates/all-users.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/projects/all-projects", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("projects", Project.all());
+      model.put("template", "templates/all-projects.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
 
     get("/users/add-new-user", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
@@ -72,40 +88,62 @@ public class App {
     get("/users/:userId/searchUsers", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
+      List<User> skillmatches = User.searchSkills(request.session().attribute("requestSkill"));
+      List<User> locationmatches = User.searchLocation(request.session().attribute("requestLocation"));
+      model.put("skillmatches", skillmatches);
+      model.put("locationmatches", locationmatches);
       model.put("user", user);
       model.put("template", "templates/search-users-form.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
+    //same page post search results
+    post("/users/:userId/searchUsers", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
       String searchSkill = request.queryParams("search-skill");
       String searchLocation = request.queryParams("search-location");
-      // if (!(searchSkill.equals(""))) {
       List<User> skillmatches = User.searchSkills(searchSkill);
+      List<User> locationmatches = User.searchLocation(searchLocation);
+      request.session().attribute("requestSkill", searchSkill);
+      request.session().attribute("requestLocation", searchLocation);
       model.put("skillmatches", skillmatches);
-      // } else {
-      //   List<User> locationmatches = User.searchLocation(searchLocation);
-      //   model.put("locationmatches", locationmatches);
-      // }
+      model.put("locationmatches", locationmatches);
       model.put("user", user);
-      // String url = String.format("/users/%d/searchUsers", user.getId());
-      // response.redirect(url);
-      model.put("template", "templates/search-results.vtl");
+      String url = String.format("/users/%d/searchUsers", user.getId());
+      response.redirect(url);
+      // model.put("template", "templates/searchUsers.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("/users/:userId/searchUsers-skillResults/:skills", (request, response) -> {
+    get("/users/:userId/searchProjects", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));
-      String skills = request.params(":skills");
+      List<Project> descriptionmatches = Project.searchDescription(request.session().attribute("requestProjectDescription"));
+      List<Project> projectlocationmatches = Project.searchLocation(request.session().attribute("requestProjectLocation"));
+      model.put("descriptionmatches", descriptionmatches);
+      model.put("projectlocationmatches", projectlocationmatches);
       model.put("user", user);
-      model.put("skillmatches", User.searchSkills(skills));
-      model.put("template", "templates/skills-results.vtl");
+      model.put("template", "templates/search-projects-form.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    post("/users/:userId/searchProjects", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params(":userId")));
+      String searchProjectDescription = request.queryParams("description");
+      String searchProjectLocation = request.queryParams("location");
+      List<Project> descriptionmatches = Project.searchDescription(searchProjectDescription);
+      List<Project> projectlocationmatches = Project.searchLocation(searchProjectLocation);
+      request.session().attribute("requestProjectDescription", searchProjectDescription);
+      request.session().attribute("requestProjectLocation", searchProjectLocation);
+      model.put("descriptionmatches", descriptionmatches);
+      model.put("projectlocationmatches", projectlocationmatches);
+      model.put("user", user);
+      String url = String.format("/users/%d/searchProjects", user.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
     get("/users/:userId/delete-user", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
@@ -121,7 +159,6 @@ public class App {
       user.delete();
       String url = "/";
       response.redirect(url);
-      //model.put("user", user);
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
@@ -181,8 +218,6 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    //page directs to newly created project details, but still shows $project.getId() in path
-
     get("users/:userId/projects/:projectId", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       Project project = Project.find(Integer.parseInt(request.params(":projectId")));
@@ -201,8 +236,6 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Project project = Project.find(Integer.parseInt(request.params(":projectId")));
       String noteDescription = request.queryParams("add-note");
-      // int projectId = Integer.parseInt(request.params(":projectId"));
-      // int userId = Integer.parseInt(request.params(":userId"));
       User user = User.find(Integer.parseInt(request.params(":userId")));
       User noteTaker = User.find(Integer.parseInt(request.queryParams("host_id")));
       Note newNote = new Note(noteTaker.getId(), noteTaker.getName(), noteDescription, project.getId());

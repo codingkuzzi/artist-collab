@@ -15,15 +15,14 @@
 <div class="project-list">
   <h4>Projects:</h4>
   <ul>
+    <h4>
     #foreach ($project in $projects)
       <li><a href="/users/$user.getId()/projects/$project.getId()">$project.getName()</a></li>
     #end
+  </h4>
   </ul>
 </div>
 
-
-
-<a href="/users/$user.getId()/searchUsers"><h4>Find Artists to Collaborate With!</h4></a>
 
 <div class="options">
 <a href="/users/$user.getId()/delete-user"><button class="btn btn-danger">Delete Your Account</button></a>
@@ -36,5 +35,11 @@
 <img src="$user.getPictureLink()" alt="user picture" height="300" width = "300" style="border: none;" >
 </div>
 
+
 </div>
+
+<a href="/users/$user.getId()/searchUsers"><h4>Find Artists to Collaborate With!</h4></a>
+
+<a href="/users/$user.getId()/searchProjects"><h4>Find Projects that Interest You!</h4></a>
+
 <!--user-details.vtl-->

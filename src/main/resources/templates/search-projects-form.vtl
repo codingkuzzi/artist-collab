@@ -1,0 +1,47 @@
+<!--search-projects-form.vtl-->
+<h1>Find Projects that Interest You!</h1>
+
+<div class="row">
+  <div class="col-xs-6">
+    <form action="/users/$user.getId()/searchProjects" method="post">
+      <label for="description">Search by Project Description</label>
+      <input id="description" name="description" type="text">
+      <button type="submit" class="btn btn-info">Find By Keywords</button>
+    </form>
+  </div>
+  <div class="col-xs-6">
+    <form action="/users/$user.getId()/searchProjects" method="post">
+      <label for="location">Search by Project Location</label>
+      <input id="location" name="location" type="text">
+      <button type="submit" class="btn btn-success">Find By Location</button>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-6">
+    #foreach($descriptionmatch in $descriptionmatches)
+      <div class="thumbnail">
+        <a href="/users/$user.getId()/projects/$descriptionmatch.getId()"><h4>$descriptionmatch.getName()</h4></a>
+        <ul>
+          <li>$descriptionmatch.getDescription()</li>
+          <li>$descriptionmatch.getLocation()</li>
+        </ul>
+      </div>
+    #end
+  </div>
+
+  <div class="col-xs-6">
+    #foreach($projectlocationmatch in $projectlocationmatches)
+      <div class="thumbnail">
+        <a href="/users/$user.getId()/projects/$projectlocationmatch.getId()"><h4>$projectlocationmatch.getName()</h4></a>
+        <ul>
+          <li>$projectlocationmatch.getDescription()</li>
+          <li>$projectlocationmatch.getLocation()</li>
+        </ul>
+      </div>
+    #end
+  </div>
+</div>
+
+<!--search-projects-form.vtl-->
