@@ -49,7 +49,7 @@ body {
   <form action="/users/$user.getId()/projects/$project.getId()/note-added" method="post">
     <input id="host_id" name="host_id" type="hidden" value="$user.getId()">
     <label for="add-note"></label>
-    <textarea id="add-note" name="add-note" type="text" class="form-control" rows=5 required></textarea>
+    <input id="add-note" name="add-note" type="text" class="form-control" rows=5 required>
     <button type="submit" class="btn" id="orange">Add Note</button>
   </form>
   </div>
