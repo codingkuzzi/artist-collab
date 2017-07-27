@@ -116,6 +116,35 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/users/:userId/searchProjects", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params(":userId")));
+      List<Project> descriptionmatches = Project.searchDescription(request.session().attribute("requestProjectDescription"));
+      List<Project> projectlocationmatches = Project.searchLocation(request.session().attribute("requestProjectLocation"));
+      model.put("descriptionmatches", descriptionmatches);
+      model.put("projectlocationmatches", projectlocationmatches);
+      model.put("user", user);
+      model.put("template", "templates/search-projects-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/users/:userId/searchProjects", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      User user = User.find(Integer.parseInt(request.params(":userId")));
+      String searchProjectDescription = request.queryParams("description");
+      String searchProjectLocation = request.queryParams("location");
+      List<Project> descriptionmatches = Project.searchDescription(searchProjectDescription);
+      List<Project> projectlocationmatches = Project.searchLocation(searchProjectLocation);
+      request.session().attribute("requestProjectDescription", searchProjectDescription);
+      request.session().attribute("requestProjectLocation", searchProjectLocation);
+      model.put("descriptionmatches", descriptionmatches);
+      model.put("projectlocationmatches", projectlocationmatches);
+      model.put("user", user);
+      String url = String.format("/users/%d/searchProjects", user.getId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     get("/users/:userId/delete-user", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       User user = User.find(Integer.parseInt(request.params(":userId")));

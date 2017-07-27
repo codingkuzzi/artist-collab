@@ -75,6 +75,23 @@ public class Project {
      }
    }
 
+   public static List<Project> searchDescription(String description) {
+     try(Connection con = DB.sql2o.open()) {
+       String sql = "SELECT * FROM projects WHERE description LIKE '%"+description+"%'";
+       return con.createQuery(sql)
+               .executeAndFetch(Project.class);
+     }
+   }
+
+   public static List<Project> searchLocation(String location) {
+     try(Connection con = DB.sql2o.open()) {
+       String sql = "SELECT * FROM projects WHERE location LIKE '%"+location+"%'";
+       return con.createQuery(sql)
+               .executeAndFetch(Project.class);
+     }
+   }
+
+
    public void save() {
    try(Connection con = DB.sql2o.open()) {
      String sql = "INSERT INTO projects (name, host_id, description, location, time_requirements, project_picture, open_closed) VALUES (:name, :host_id, :description, :location, :time_requirements, :project_picture, :open_closed);";
