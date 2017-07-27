@@ -117,11 +117,19 @@ public class UserTest {
     assertEquals(savedProject.getHostId(), savedUser.getId());
   }
   @Test
-  public void search_retrieveListOfUsersWithMatchingSkill_true() {
+  public void searchSkills_retrieveListOfUsersWithMatchingSkill_true() {
     User firstUser = new User("Fred", "password", "painting, drawing, AutoCAD", "Seattle", "fredartist@gmail.com");
     firstUser.save();
-    List<User> users = User.search("drawing");
+    List<User> users = User.searchSkills("drawing");
     assertTrue(users.get(0).equals(firstUser));
   }
+  @Test
+  public void searchLocation_retrieveListOfUsersWithMatchingSkill_true() {
+    User firstUser = new User("Fred", "password", "painting, drawing, AutoCAD", "Seattle", "fredartist@gmail.com");
+    firstUser.save();
+    List<User> users = User.searchLocation("Seattle");
+    assertTrue(users.get(0).equals(firstUser));
+  }
+
 
 }

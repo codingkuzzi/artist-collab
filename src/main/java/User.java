@@ -73,13 +73,22 @@ public class User {
     return time_available;
   }
 
-  public static List<User> search(String skills) {
+  public static List<User> searchSkills(String skills) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT * FROM users WHERE skills LIKE '%"+skills+"%'";
       return con.createQuery(sql)
               .executeAndFetch(User.class);
     }
   }
+
+  public static List<User> searchLocation(String location) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM users WHERE location LIKE '%"+location+"%'";
+      return con.createQuery(sql)
+              .executeAndFetch(User.class);
+    }
+  }
+
 
   public void save(){
     try(Connection con = DB.sql2o.open()){
