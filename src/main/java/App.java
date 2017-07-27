@@ -18,13 +18,27 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    // post("/login", (request, response) -> {
-    //   Map<String, Object> model = new HashMap<String, Object>();
-    //   String username = request.queryParams("username");
-    //   String password = request.queryParams("password");
-    //   int tempId = User.authenticate(username, password);
-    //
-    // })
+    post("/login", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String username = request.queryParams("username");
+      String password = request.queryParams("password");
+      int tempId = User.authenticate(username, password);
+      if (tempId > 0) {
+        User user = User.find(tempId);
+        model.put("user", user);
+        String url = String.format("/users/%d", user.getId());
+        response.redirect(url);
+      } else {
+        model.put("template", "templates/login-error.vtl");
+      }
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/login", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/login-error.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
     get("/users/add-new-user", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();

@@ -73,9 +73,6 @@ public class UserTest {
     Project savedProjectTwo = Project.find(secondProject.getId());
     savedProjectTwo.addMember(firstUser);
     List<Project> fredsProjects = firstUser.getProjects();
-    System.out.println(fredsProjects);
-    System.out.println(savedProjectOne);
-    System.out.println(savedProjectTwo);
     assertEquals(true, fredsProjects.get(0).equals(savedProjectOne));
     assertEquals(true, fredsProjects.get(1).equals(savedProjectTwo));
     assertEquals(fredsProjects.size(), 2);
@@ -138,6 +135,9 @@ public class UserTest {
     secondUser.save();
     assertEquals(firstUser.getId(), User.authenticate("Fred", "password"));
     assertEquals(secondUser.getId(), User.authenticate("Anna", "password123"));
+    // int whatThe = User.authenticate("Anna", "nopassword");
+    // System.out.println(whatThe);
+    // assertEquals(null, User.authenticate("Anna", "nopassword"));
   }
 
 
