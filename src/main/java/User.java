@@ -73,6 +73,14 @@ public class User {
     return time_available;
   }
 
+  public static List<User> search(String skills) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM users WHERE skills LIKE '%"+skills+"%'";
+      return con.createQuery(sql)
+              .executeAndFetch(User.class);
+    }
+  }
+
   public void save(){
     try(Connection con = DB.sql2o.open()){
       String sql = "INSERT INTO users (name, password, skills, location, email, time_available, picture_link, past_works, past_projects, recommendations) VALUES (:name, :password, :skills, :location, :email, :time_available, :picture_link, :past_works, :past_projects, :recommendations)";

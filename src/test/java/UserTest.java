@@ -116,5 +116,12 @@ public class UserTest {
     Project savedProject = Project.find(testProject.getId());
     assertEquals(savedProject.getHostId(), savedUser.getId());
   }
+  @Test
+  public void search_retrieveListOfUsersWithMatchingSkill_true() {
+    User firstUser = new User("Fred", "password", "painting, drawing, AutoCAD", "Seattle", "fredartist@gmail.com");
+    firstUser.save();
+    List<User> users = User.search("drawing");
+    assertTrue(users.get(0).equals(firstUser));
+  }
 
 }
