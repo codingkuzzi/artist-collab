@@ -1,7 +1,5 @@
 ## Artist Collab
 
-An app for the forest service to track animals for an environmental impact study.
-
 #### By _**Mick Sexton, Alena Golovina, Anna Kuznetsova, Anna Timofeyeva**_
 
 ### Description
